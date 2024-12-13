@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>录音转文字</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+        }
+        h1 {
+            color: #5a9;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #5a9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #48a;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin: 20px auto;
+            display: block;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>录音转文字</h1>
+    <p>点击下方按钮开始录音，将语音转换为文字。</p>
+    <button id="startBtn">开始录音</button>
+    <button id="stopBtn" disabled>停止录音</button>
+    <textarea id="output" placeholder="语音转文字结果将显示在这里..." readonly></textarea>
+    <button id="saveBtn" disabled>保存文字</button>
+
+    <script>
+        // 检查浏览器是否支持 Web Speech API
+        if (!('webkitSpeechRecognition' in window)) {
+            alert('很抱歉，您的浏览器不支持语音识别功能，请更换浏览器（如 Chrome）。');
+        } else {
+            const recognition = new webkitSpeechRecognition();
+            recognition.lang = 'zh-CN'; // 设置语言为中文
+            recognition.continuous = true; // 连续识别
+            recognition.interimResults = false; // 不显示中间结果
+            const startBtn = document.getElementById('startBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const output = document.getElementById('output');
+
+            let finalTranscript = '';
+
+            // 开始录音
+            startBtn.addEventListener('click', () => {
+                finalTranscript = '';
+                output.value = '';
+                recognition.start();
+                startBtn.disabled = true;
+                stopBtn.disabled = false;
+            });
+
+            // 停止录音
+            stopBtn.addEventListener('click', () => {
+                recognition.stop();
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+                saveBtn.disabled = false;
+            });
+
+            // 收到语音识别结果
+            recognition.onresult = (event) => {
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    }
+                }
+                output.value = finalTranscript;
+            };
+
+            // 保存文字为文件
+            saveBtn.addEventListener('click', () => {
+                const blob = new Blob([finalTranscript], { type: 'text/plain;charset=utf-8' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = '录音文字.txt';
+                link.click();
+            });
+
+            // 错误处理
+            recognition.onerror = (event) => {
+                console.error('语音识别错误:', event.error);
+                alert('语音识别出现错误，请重试。');
+                startBtn.disabled = false;
+                stopBtn.disabled = true;
+            };
+        }
+    </script>
+</body>
+</html>
