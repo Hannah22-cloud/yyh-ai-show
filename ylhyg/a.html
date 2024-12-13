@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>银龄回忆馆</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            font-size: 20px;
+        }
+        header {
+            background-color: #85C1E9;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .feature {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border: 2px solid #85C1E9;
+            border-radius: 8px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2874a6;
+        }
+        .large-text {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        银龄回忆馆
+    </header>
+    <div class="container">
+        <div class="feature">
+            <h2>AI语音转文字撰写回忆录</h2>
+            <p>点击下方按钮，与我们的AI助手聊天，开始撰写您的回忆录。</p>
+            <button onclick="startRecording()">开始录音</button>
+        </div>
+        <div class="feature">
+            <h2>与志愿组织连线</h2>
+            <p>如需志愿者帮助记录或整理回忆录，点击下方按钮联系我们。</p>
+            <button onclick="connectWithVolunteers()">联系志愿者</button>
+        </div>
+        <div class="feature">
+            <h2>新增功能：家庭共享</h2>
+            <p>将您的回忆录分享给家人，保存珍贵的记忆。</p>
+            <button onclick="shareWithFamily()">分享给家人</button>
+        </div>
+    </div>
+
+    <script>
+        function startRecording() {
+            alert("正在启动AI语音录制功能...");
+            // 此处可以集成语音识别API的功能
+        }
+
+        function connectWithVolunteers() {
+            alert("正在连接志愿组织...");
+            // 此处可以设置跳转到志愿者联系页面
+        }
+
+        function shareWithFamily() {
+            alert("开启家庭共享功能...");
+            // 此处可以集成家庭共享功能，例如通过微信或邮件发送
+        }
+    </script>
+</body>
+</html>
